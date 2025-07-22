@@ -2,7 +2,7 @@ const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akair
 const { Intents } = require('discord.js');
 const { join } = require('path');
 const { Manager } = require('erela.js');
-const { default: Spotify } = require('better-erela.js-spotify');
+const Spotify = require('erela.js-spotify');
 const { default: AppleMusic } = require('better-erela.js-apple');
 const { CreatePrompt } = require('../Utility/CreatePrompt');
 const Deezer = require('../Plugin/Deezer');
@@ -10,6 +10,7 @@ const config = require('../config');
 const { CreateEmbed } = require('../Utility/CreateEmbed');
 const { logger } = require('../Utility/Logger');
 require('../Extenders/Node');
+require("dotenv").config();
 
 module.exports = class NoteClient extends AkairoClient {
   constructor() {
@@ -30,7 +31,10 @@ module.exports = class NoteClient extends AkairoClient {
       nodes: this.config.nodes,
       plugins: [
         new Deezer(),
-        new Spotify(),
+        new Spotify({
+          clientID: process.env.SPOTIFY_CLIENT_ID,
+          clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+        }),
         new AppleMusic(),
       ],
       send: (id, payload) => {
