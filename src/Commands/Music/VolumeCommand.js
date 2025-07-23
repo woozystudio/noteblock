@@ -3,8 +3,8 @@ const { CreateEmbed } = require('../../Utility/CreateEmbed');
 
 module.exports = class VolumeCommand extends Command {
   constructor() {
-    super('Volume', {
-      aliases: ['Volume'],
+    super('volume', {
+      aliases: ['volume'],
       description: {
         content: 'Change music volume',
       },
